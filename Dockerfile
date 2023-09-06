@@ -42,12 +42,24 @@ RUN \
   wine-${WINEBRANCH}=${WINEVERSION} \
   steamcmd \
   xvfb \
+  dos2unix \
   cabextract && \
   curl -L https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks > /usr/local/bin/winetricks && \
   chmod +x /usr/local/bin/winetricks 
 
 # Winetricks (This block uses most of the build time)
-COPY winetricks.sh /root/
+COPY winetricks.sh /root/winetricks.sh
+COPY healthcheck.sh /root/healthcheck.sh
+COPY entrypoint.sh /root/entrypoint.sh
+
+RUN chmod 777 /root/winetricks.sh
+RUN chmod 777 /root/entrypoint.sh
+RUN chmod 777 /root/healthcheck.sh
+
+RUN dos2unix /root/winetricks.sh
+RUN dos2unix /root/entrypoint.sh
+RUN dos2unix /root/healthcheck.sh
+
 RUN \
   /root/winetricks.sh && \
   rm -f /root/winetricks.sh && \
@@ -59,8 +71,7 @@ RUN \
   apt-get -qq clean autoclean && \
   rm -rf /var/lib/{apt,dpkg,cache,log}/
 
-COPY healthcheck.sh /root/
+
 HEALTHCHECK --interval=60s --timeout=60s --start-period=600s --retries=3 CMD [ "/root/healthcheck.sh" ]
 
-COPY entrypoint.sh /root/
 ENTRYPOINT /root/entrypoint.sh
