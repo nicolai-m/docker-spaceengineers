@@ -13,6 +13,15 @@ ENV WINEDEBUG=-all
 ENV WINEPREFIX=/root/server
 ENV APT_KEY_DONT_WARN_ON_DANGEROUS_USAGE=1
 
+ENV STEAM_PORT=27015
+ENV SERVER_PORT=27016
+ENV REMOTE_API_PORT=8080
+ENV IP=127.0.0.1
+
+
+# Exponieren Sie den Port
+EXPOSE 27015 27016 8080
+
 RUN \
   dpkg --add-architecture i386 && \
   apt-get -qq -y update && \
