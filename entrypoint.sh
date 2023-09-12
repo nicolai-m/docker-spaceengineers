@@ -21,15 +21,12 @@ SAVE_PATH="Z:\\\\appdata\\\\space-engineers\\\\instances\\\\${INSTANCE_NAME}\\\\
 sed -E -i "s=<LoadWorld />|<LoadWorld.*LoadWorld>=<LoadWorld>${SAVE_PATH}</LoadWorld>=g" ${CONFIG_PATH}
 
 # update SteamPort
-CURRENT_STEAM_PORT=$(grep -oEi '<SteamPort>(.*)</SteamPort>' ${CONFIG_PATH} | sed -E "s=<SteamPort>|</SteamPort>==g")
 sed -E -i "s=<SteamPort />|<SteamPort.*SteamPort>=<SteamPort>$STEAM_PORT</SteamPort>=g" ${CONFIG_PATH}
 
 # update ServerPort
-CURRENT_SERVER_PORT=$(grep -oEi '<ServerPort>(.*)</ServerPort>' ${CONFIG_PATH} | sed -E "s=<ServerPort>|</ServerPort>==g")
 sed -E -i "s=<ServerPort />|<ServerPort.*ServerPort>=<ServerPort>$SERVER_PORT</ServerPort>=g" ${CONFIG_PATH}
 
 # update RemoteApiPort
-CURRENT_REMOTE_API_PORT=$(grep -oEi '<RemoteApiPort>(.*)</RemoteApiPort>' ${CONFIG_PATH} | sed -E "s=<RemoteApiPort>|</RemoteApiPort>==g")
 sed -E -i "s=<RemoteApiPort />|<RemoteApiPort.*RemoteApiPort>=<RemoteApiPort>$REMOTE_API_PORT</RemoteApiPort>=g" ${CONFIG_PATH}
 
 echo "---------------------------------UPDATE PLUGINS------------------------------"
@@ -52,9 +49,9 @@ echo "CONFIG_PATH=$CONFIG_PATH"
 echo "INSTANCE_IP=$INSTANCE_IP"
 echo "CURRENT_IP=$CURRENT_IP"
 echo "CURRENT_WORLDNAME=$CURRENT_WORLDNAME"
-echo "STEAM_PORT=$CURRENT_STEAM_PORT"
-echo "SERVER_PORT=$CURRENT_SERVER_PORT"
-echo "REMOTE_API_PORT=$CURRENT_REMOTE_API_PORT"
+echo "STEAM_PORT=$STEAM_PORT"
+echo "SERVER_PORT=$SERVER_PORT"
+echo "REMOTE_API_PORT=$REMOTE_API_PORT"
 echo "SAVE_PATH=$SAVE_PATH"
 ## END UPDATES ##
 wine --version

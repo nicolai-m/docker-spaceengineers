@@ -20,7 +20,7 @@ ENV IP=127.0.0.1
 
 
 # Exponieren Sie den Port
-EXPOSE 27015 27016 8080
+EXPOSE $STEAM_PORT $SERVER_PORT $REMOTE_API_PORT
 
 RUN \
   dpkg --add-architecture i386 && \
